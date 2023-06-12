@@ -28,9 +28,9 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             echo "Running custom commands on EC2..."
-            sudo apt-get update
-            sudo apt install -y python3 python3-pip
-            sudo apt-get install postgresql
+            sudo yum update -y
+            sudo yum install -y python3 python3-pip
+            sudo yum install -y postgresql
             sudo service postgresql start
 
 
