@@ -12,13 +12,14 @@ jobs:
     steps:
       - name: Checkout the files
         uses: actions/checkout@v2
-
-#      - name: Deploy to Server EC2
-#        uses: easingthemes/ssh-deploy@main
-#        env:
-#          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-#          REMOTE_HOST: ${{ secrets.EC2_REMOTE_HOST }}
-#          REMOTE_USER: ${{ secrets.EC2_REMOTE_USER }}
+      - name: Login to Dockerhub
+        run: docker login -u ${{ secrets.DOCKER_HUB_LOGIN }} -p ${{ secrets.DOCKER_HUB_TOKEN }}
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          file: ./Dockerfile
+          tags: bohdankostenko/sales-bot
 
       - name: Run Custom Commands on EC2
         uses: appleboy/ssh-action@master
@@ -27,10 +28,11 @@ jobs:
           username: ${{ secrets.EC2_REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            echo "Running custom commands on EC2..."
-            sudo yum update -y
-            sudo yum install -y python3 python3-pip
-            gunicorn delete_django.wsgi --bind 0.0.0.0:8000
+            docker login -u ${{ secrets.DOCKER_HUB_LOGIN }} -p ${{ secrets.DOCKER_HUB_TOKEN }}
+            docker stop my-container || true
+            docker rm my-container || true
+            docker run -d --name my-container -p 8000:8000 bohdankostenko/sales-bot
+
 
 #            sudo yum install -y postgresql
 #            sudo service postgresql start
