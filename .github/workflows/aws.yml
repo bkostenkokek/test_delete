@@ -30,6 +30,8 @@ jobs:
             echo "Running custom commands on EC2..."
             sudo yum update -y
             sudo yum install -y python3 python3-pip
+            gunicorn delete_django.wsgi --bind 0.0.0.0:8000
+
 #            sudo yum install -y postgresql
 #            sudo service postgresql start
 
