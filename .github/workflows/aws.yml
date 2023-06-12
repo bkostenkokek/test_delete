@@ -30,13 +30,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install postgresql
           sudo service postgresql start
-          
-      - name: Run database migrations
-        env:
-          DATABASE_URL: sssss
-        run: python3 manage.py migrate
 
-      - name: Deploy to Server
+      - name: Deploy to Server EC2
         uses: easingthemes/ssh-deploy@main
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
