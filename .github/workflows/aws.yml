@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-#          pip install -r requirements.txt
+          pip install -r requirements.txt
 
       - name: Set up PostgreSQL
         run: |
@@ -42,11 +42,11 @@ jobs:
           REMOTE_HOST: ${{ secrets.EC2_REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.EC2_REMOTE_USER }}
 
-#      - name: Run command on EC2 instance
-#        uses: appleboy/ssh-action@v0.1.10
-#        with:
-#          host: ${{ secrets.EC2_REMOTE_HOST }}
-#          username: ${{ secrets.EC2_REMOTE_USER }}
-#          key: ${{ secrets.SSH_PRIVATE_KEY }}
-#          port: 22
-#          script: python manage.py runserver 0.0.0.0:8000
+      - name: Run command on EC2 instance
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.EC2_REMOTE_HOST }}
+          username: ${{ secrets.EC2_REMOTE_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: python manage.py runserver 0.0.0.0:8000
