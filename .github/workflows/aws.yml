@@ -33,7 +33,7 @@ jobs:
       - name: Run database migrations
         env:
           DATABASE_URL: sssss
-        run: python manage.py migrate
+        run: python3 manage.py migrate
 
       - name: Deploy to Server
         uses: easingthemes/ssh-deploy@main
@@ -43,5 +43,5 @@ jobs:
           REMOTE_USER: ${{ secrets.EC2_REMOTE_USER }}
 
       - name: Runserver
-        run: python manage.py runserver 0.0.0.0:8000
+        run: python3 manage.py runserver 0.0.0.0:8000
 
