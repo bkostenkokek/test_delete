@@ -22,13 +22,15 @@ jobs:
 
       - name: Install dependencies
         run: |
+          sudo yum update -y
+          sudo yum install -y python3-pip
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
       - name: Set up PostgreSQL
         run: |
           sudo apt-get update
-          sudo apt-get install postgresql python3-pip
+          sudo apt-get install postgresql
           sudo service postgresql start
           
       - name: Run database migrations
@@ -43,6 +45,6 @@ jobs:
           REMOTE_HOST: ${{ secrets.EC2_REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.EC2_REMOTE_USER }}
 
-#      - name: Runserver
-#        run: python3 manage.py runserver 0.0.0.0:8000
+      - name: Runserver
+        run: python3 manage.py runserver 0.0.0.0:8000
 
