@@ -7,7 +7,7 @@ from django.db import models
 class StandardQuestions(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
-    question_text = models.CharField(null=True, blank=True)
+    question_text = models.CharField(max_length=255, null=True, blank=True)
 
     class Meta:
         verbose_name = 'Standard Questions'
@@ -21,7 +21,7 @@ class StandardQuestions(models.Model):
 class UserStandardAnswers(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
-    answer = models.CharField(null=True, default='')
+    answer = models.CharField(max_length=255, null=True, default='')
 
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     question = models.ForeignKey(StandardQuestions, on_delete=models.SET_NULL, null=True)
