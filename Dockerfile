@@ -1,7 +1,5 @@
 FROM python:3.9
 
-ENV DJANGO_SETTINGS_MODULE=delete_django.settings.production
-
 WORKDIR /app
 
 COPY requirements.txt .

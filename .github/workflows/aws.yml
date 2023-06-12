@@ -31,9 +31,6 @@ jobs:
             docker login -u ${{ secrets.DOCKER_HUB_LOGIN }} -p ${{ secrets.DOCKER_HUB_TOKEN }}
             docker stop my-container || true
             docker rm my-container || true
-            docker run -d --name my-container -p 8000:8000 bohdankostenko/sales-bot
-
-
-#            sudo service postgresql start
+            docker run -d --name my-container -p 8000:8000 bohdankostenko/sales-bot:latest
 
 
