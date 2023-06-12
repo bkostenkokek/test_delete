@@ -33,7 +33,7 @@ jobs:
       - name: Run database migrations
         env:
           DATABASE_URL: sssss
-        run: python manage.py migrate
+        run: mkdir data
 
       - name: Deploy to Server
         uses: easingthemes/ssh-deploy@main
